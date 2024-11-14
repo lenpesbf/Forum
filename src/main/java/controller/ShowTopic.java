@@ -21,18 +21,10 @@ public class ShowTopic extends HttpServlet {
 		Topic newTopic = null;
 
 		for (Topic topic : topics) {
-		    if (newTopic == null || topic.getId() > newTopic.getId()) { 
-		    	newTopic = topic;
-		    }
+			if (topic == null || topic.getId() == topicId) {
+				newTopic = topic;
+			}
 		}
-
-		if (newTopic != null) {
-		    req.setAttribute("topic", newTopic);
-		    req.getRequestDispatcher("showTopic.jsp").forward(req, resp);
-		} else {
-		    resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Không có Topic nào");
-		}
-
 
 		if (getServletContext().getAttribute("topic") == null) {
 			getServletContext().setAttribute("topic", newTopic);
@@ -41,8 +33,7 @@ public class ShowTopic extends HttpServlet {
 		}
 
 		req.getRequestDispatcher("showTopic.jsp").forward(req, resp);
-		
-	
+
 	}
 
 	@Override
